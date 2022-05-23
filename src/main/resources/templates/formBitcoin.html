@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+<head>
+	<meta charset="utf-8">
+	<title>Add Bitcoin</title>
+</head>
+
+<body>
+	<div layout:fragment="Mycontent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header" th:if="${mode=='new'}"> Add Bitcoin</div>
+				<div class="card-header" th:if="${mode=='edit'}">Edit Bitcoin</div>
+				<div class="card-body">
+					<form th:action="@{saveBitcoin}" method="post">
+						<div class="form-group">
+							<label class="control-label" hidden>ID Currency:</label>
+							<input type="hidden" name="idBitcoin" class="form-control"
+								th:value="${bitcoin.idBitcoin}" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Currency Name:</label>
+							<input type="text" name="BitcoinName" class="form-control"
+								th:value="${bitcoin.BitcoinName}" />
+							<span th:errors=${bitcoin.BitcoinName} class="text-danger"> </span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Currency Price:</label>
+							<input type="text" name="BitcoinPrice" class="form-control"
+								th:value="${bitcoin.BitcoinPrice}" />
+							<span th:errors=${bitcoin.BitcoinPrice} class="text-danger"> </span>
+						</div>
+						<div>
+							<button type="submit" class="btn btn-primary" th:if="${mode=='new'}">Ajouter</button>
+							<button type="submit" class="btn btn-primary" th:if="${mode=='edit'}">Editer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
