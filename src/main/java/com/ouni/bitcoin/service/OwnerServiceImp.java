@@ -48,4 +48,10 @@ public class OwnerServiceImp implements OwnerService {
 	public Page<Owners> getAllOwnersParPage(int page, int size) {
 		return ownerRepos.findAll(PageRequest.of(page, size));
 	}
+
+	@Override
+	public List<Owners> findByBitcoin(String bitcoin) {
+		// TODO Auto-generated method stub
+		return ownerRepos.findByBitcoin(bitcoin);
+	}
 }

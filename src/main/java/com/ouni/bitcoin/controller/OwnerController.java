@@ -42,6 +42,15 @@ public class OwnerController {
 		return "formOwners";
 	}
 
+	@RequestMapping("/searchBitcoin")
+	public String searchPersonne(ModelMap modelMap, @Valid String bitcoinName) {
+		List<Owners> owners = ownerService.findByBitcoin(bitcoinName);
+
+		modelMap.addAttribute("owners", owners);
+
+		return "/SearchOwners";
+	}
+	
 	@RequestMapping("/saveOwner")
 	public String saveProduit(@Valid Owners owner, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())

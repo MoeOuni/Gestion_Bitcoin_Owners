@@ -15,28 +15,5 @@ import com.ouni.bitcoin.service.OwnerService;
 @SpringBootTest
 class BitcoinApplicationTests {
 
-	@Autowired
-	private OwnersRepository OwnerRepos;
-	@Autowired
-	private OwnerService OwnerServ;
-
-	@Test
-	public void testFindByNomProduit() {
-		List<Owners> prods = OwnerRepos.findByNomOwner("Bill");
-
-		for (Owners p : prods) {
-			System.out.println(p);
-		}
-
-	}
-
-	@Test
-	public void testFindByNomOwnerContains() {
-		List<Owners> prods = OwnerRepos.findByNomOwnerContains("Bill");
-
-		for (Owners p : prods) {
-			System.out.println(p);
-		}
-	}
 
 }

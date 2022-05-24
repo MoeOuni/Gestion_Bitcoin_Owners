@@ -8,7 +8,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Liste des Owners</title>
+	<title>Owners's List</title>
 </head>
 
 <body>
@@ -16,11 +16,11 @@
 		<div class="container mt-5">
 			<div class="card">
 				<div class="card-header">
-					Liste des Owners
+					Owners's List
 					<hr />
 					<form th:action="@{searchBitcoin}" method="post">
 						<div class="d-flex justify-content-between w-50">
-							<input type="text" name="bitcoinName" placeholder="Search Owner by bitcoin name"
+							<input type="text" name="bitcoinName" placeholder="Rechercher Bitcoin"
 								class="form-control " />
 							<button type="submit" class="btn btn-secondary mx-3">Search</button>
 						</div>
@@ -36,26 +36,19 @@
 							<th>Coin</th>
 							<th>Actions</th>
 						</tr>
-						<tr th:each="p:${owners.content}">
+						<tr th:each="p:${owners}">
 							<td th:text="${p.idOwner}"></td>
 							<td th:text="${p.nomOwner}"></td>
 							<td th:text="${p.purchaseDate}"></td>
 							<td th:text="${p.coinsOwned}"></td>
 							<td th:text="${p.bitcoin.BitcoinName}"></td>
-							<td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerOwner(id=${p.idOwner},
-page=${currentPage},size=${size})}">Supprimer</a>
-								<a class="btn btn-success" th:href="@{modifierOwner(id=${p.idOwner},
-page=${currentPage},size=${size})}">Editer</a>
+							<td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')"
+									th:href="@{supprimerOwner(id=${p.idOwner})}">Supprimer</a>
+								<a class="btn btn-success" th:href="@{modifierOwner(id=${p.idOwner})}">Editer</a>
 							</td>
 						</tr>
 					</table>
-					<ul class="nav nav-pills">
-						<li th:each="page,status:${pages}">
-							<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
-								th:href="@{ ListeOwners(page=${status.index}, size=${size} ) }"
-								th:text="${status.index }"></a>
-						</li>
-					</ul>
+
 				</div>
 			</div>
 		</div>
