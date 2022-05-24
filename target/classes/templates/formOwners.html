@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+<head>
+	<meta charset="utf-8">
+	<title>Add Owner</title>
+</head>
+
+<body>
+	<div layout:fragment="Mycontent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header" th:if="${mode=='new'}"> Add Owner </div>
+				<div class="card-header" th:if="${mode=='edit'}">Edit Owner </div>
+				<div class="card-body">
+					<form th:action="@{saveOwner}" method="post">
+						<div class="form-group">
+							<label class="control-label" hidden>ID Owner :</label>
+							<input type="hidden" name="idOwner" class="form-control"
+								th:value="${owner.idOwner}" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Owner Name:</label>
+							<input type="text" name="nomOwner" class="form-control"
+								th:value="${owner.nomOwner}" />
+							<span th:errors=${owner.nomOwner} class="text-danger"> </span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Coins Owned:</label>
+							<input type="text" name="coinsOwned" class="form-control"
+								th:value="${owner.coinsOwned}" />
+							<span th:errors=${owner.coinsOwned} class="text-danger"> </span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Bitcoins :</label>
+							<select type="text" name="bitcoin" class="form-control">
+								<option th:each="c:${bitcoins}" th:if="${mode=='edit'}" th:value="${c.idBitcoin}"
+									th:text="${c.BitcoinName}"  th:selected=" ${ c.idBitcoin==owner.bitcoin.idBitcoin}"></option>
+
+								<option th:each="c:${bitcoins}" th:if="${mode=='new'}" th:value="${c.idBitcoin}"
+									th:text="${c.BitcoinName}"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Purchase Date :</label>
+							<input type="date" name="purchaseDate" class="form-control"
+								th:value="${owner.purchaseDate}" />
+							<span th:errors=${owner.purchaseDate} class="text-danger"> </span>
+						</div>
+						<div>
+							<button type="submit" class="btn btn-primary" th:if="${mode=='new'}">Ajouter</button>
+							<button type="submit" class="btn btn-primary" th:if="${mode=='edit'}">Editer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<c:url value="/css/main.css" var="jstlCss" />
+<link href="${jstlCss}" rel="stylesheet" />
+<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<head>
+	<meta charset="utf-8">
+	<title>Liste Bitcoins</title>
+</head>
+
+<body>
+	<div layout:fragment="Mycontent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header">
+					Liste Bitcoins
+				</div>
+				<div class="card-body">
+					<table class="table table-striped">
+						<tr>
+							<th>ID</th>
+							<th>Currency Name</th>
+							<th>Currency Price</th>
+							<th>Actions</th>
+						</tr>
+						<tr th:each="p:${bitcoins.content}">
+							<td th:text="${p.idBitcoin}"></td>
+							<td th:text="${p.BitcoinName}"></td>
+							<td th:text="${p.BitcoinPrice}"></td>
+							<td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerBitcoin(id=${p.idBitcoin},
+page=${currentPage},size=${size})}">Supprimer</a>
+								<a class="btn btn-success" th:href="@{modifierBitcoin(id=${p.idBitcoin},
+page=${currentPage},size=${size})}">Editer</a>
+							</td>
+						</tr>
+					</table>
+					<ul class="nav nav-pills">
+						<li th:each="page,status:${pages}">
+							<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+								th:href="@{ ListeBitcoins(page=${status.index}, size=${size} ) }"
+								th:text="${status.index }"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

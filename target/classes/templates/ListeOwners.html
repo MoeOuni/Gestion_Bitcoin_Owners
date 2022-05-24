@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<c:url value="/css/main.css" var="jstlCss" />
+<link href="${jstlCss}" rel="stylesheet" />
+<script type="text/javascript" src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<head>
+	<meta charset="utf-8">
+	<title>Liste des Owners</title>
+</head>
+
+<body>
+	<div layout:fragment="Mycontent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header">
+					Liste des Owners
+					<hr />
+					<form th:action="@{searchBitcoin}" method="post">
+						<div class="d-flex justify-content-between w-50">
+							<input type="text" name="bitcoinName" placeholder="Search Owner by bitcoin name"
+								class="form-control " />
+							<button type="submit" class="btn btn-secondary mx-3">Search</button>
+						</div>
+					</form>
+				</div>
+				<div class="card-body">
+					<table class="table table-striped">
+						<tr>
+							<th>ID</th>
+							<th>Owner</th>
+							<th>Purchase Date</th>
+							<th>Owned Coins</th>
+							<th>Coin</th>
+							<th>Actions</th>
+						</tr>
+						<tr th:each="p:${owners.content}">
+							<td th:text="${p.idOwner}"></td>
+							<td th:text="${p.nomOwner}"></td>
+							<td th:text="${p.purchaseDate}"></td>
+							<td th:text="${p.coinsOwned}"></td>
+							<td th:text="${p.bitcoin.BitcoinName}"></td>
+							<td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{supprimerOwner(id=${p.idOwner},
+page=${currentPage},size=${size})}">Supprimer</a>
+								<a class="btn btn-success" th:href="@{modifierOwner(id=${p.idOwner},
+page=${currentPage},size=${size})}">Editer</a>
+							</td>
+						</tr>
+					</table>
+					<ul class="nav nav-pills">
+						<li th:each="page,status:${pages}">
+							<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+								th:href="@{ ListeOwners(page=${status.index}, size=${size} ) }"
+								th:text="${status.index }"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
